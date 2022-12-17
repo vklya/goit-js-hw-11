@@ -1,9 +1,5 @@
 .gallery {
     margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
 
     @include mobile {
         max-width: 400px;
@@ -11,6 +7,10 @@
 
     @include tablet {
         max-width: 700px;
+        gap: 30px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
     @include desktop {
@@ -20,11 +20,42 @@
 
 .gallery__card {
     height: 100%;
-    flex-basis: calc((100% - 20px) / 4);
+    margin-top: 20px;
+    
+    @include tablet {
+        margin-top: 0;
+        flex-basis: calc((100% - 30px) / 3);  
+    }
+
+    @include desktop {
+        flex-basis: calc((100% - 30px) / 4);
+    }
+}
+
+.gallery__item {
+    transition: outline 100ms ease-in-out;
+
+    &:hover,
+    &:focus {
+        outline: 5px solid $mainColor;
+    }
+}
+
+.gallery__image {
+    height: 100%;
+
+    @include tablet {
+        object-fit: cover;
+        height: 200px;
+    }
+
+    @include desktop {
+        height: 300px;
+    }
 }
 
 .gallery__spinner{
-    margin: 0 auto;
+    text-align: center;
     fill: $accentColor;
 
     &.is-hidden {
@@ -32,13 +63,31 @@
     }
 }
 
+.info {
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    color: $darkColor;
+    background-color: $accentColor;
+    border-radius: 0 0 20px 20px;
+    font-size: 10px;
+
+    @include tablet {
+        font-size: 14px;
+    }
+}
+
 
 .load-more{
-    margin: 0 auto;;
-    color: $bgdColor;
+    margin: 20px auto 0;
+    padding: 14px;
+    color: $darkColor;
     background-color: $accentColor;
     font-family: inherit;
     border-radius: 8px;
+    font-size: 14px;
     border: none;
     box-shadow: 0 2px 6px 0 $darkColor;
     transition: transform 250ms ease-in-out, box-shadow 250ms ease-in-out;
@@ -52,5 +101,9 @@
         cursor: pointer;
         transform: scale(1.1);
         box-shadow: none;
+    }
+
+    @include tablet {
+        margin-top: 30px;
     }
 }

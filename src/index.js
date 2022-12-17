@@ -19,7 +19,7 @@ let lightbox = new SimpleLightbox('.gallery a', {
 });
 
 refs.form.addEventListener('submit', onSearch);
-loadMoreBtn.btn.addEventListener('click', fetchGallery);
+loadMoreBtn.btn.addEventListener('click', onLoadMore);
 refs.spinner.classList.add('is-hidden');
 
 function onSearch(e) {
@@ -30,7 +30,7 @@ function onSearch(e) {
     api.resetPage();
     api.query = e.currentTarget.elements.searchQuery.value.trim();
     if (api.query === '') {
-        warning();
+        Notify.warning('Enter data to continue searching', { position: "center-top", timeout: 4000 });
         return;
     }
     refs.spinner.classList.remove('is-hidden');
@@ -42,86 +42,70 @@ async function fetchGallery() {
     try {
         const images = await api.fetchImages();
         const countHits = images.data.hits.length;
-        console.log(images.data.totalHits);
+        console.log(countHits);
         if (countHits === 0) {
-                error();
-                refs.spinner.classList.add('is-hidden');
-                return;
+            Notify.failure('Sorry, there are no images matching your search query. Please try again.', { position: "center-top", timeout: 4000 });
+            refs.spinner.classList.add('is-hidden');
+            return;
         }
         else {
-                refs.spinner.classList.add('is-hidden');
-                renderGallery(images.data.hits);
-                success();
-                if (countHits >= 40) {
-                    loadMoreBtn.show();
-                }
-                else if (countHits < 40) {
-                    loadMoreBtn.hide();
-                    Notify.warning("We're sorry, but you've reached the end of search results.", { position: "center-top", timeout: 4000 });
-                }
-            lightbox.refresh();
-            }   
+            refs.spinner.classList.add('is-hidden');
+            renderGallery(images.data.hits);
+            if (countHits >= 40) {
+                loadMoreBtn.show();
+                if (api.page === 1)
+                    Notify.success(`Hooray! We found ${images.data.totalHits} images.`, { position: "center-top", timeout: 4000 });
+            }
+            else if (countHits < 40) {
+                loadMoreBtn.hide();
+                Notify.warning("We're sorry, but you've reached the end of search results.", { position: "center-top", timeout: 4000 });
+            }
+        lightbox.refresh();
+        }   
     }
     catch (error) {
         api.resetPage();
         refs.spinner.classList.add('is-hidden');
-        Notify.failure(error.message);
+        Notify.failure('Ooops, ', error.message, { position: "center-top", timeout: 4000 });
     }
 }
 
 function renderGallery(hits) {
     const markup = hits.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads, }) => {
-        return `<a href="${largeImageURL}"><div class="gallery__card">
-        <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+        return `<div class="gallery__card">
+        <div class="gallery__item">
+            <a href="${largeImageURL}">
+            <img src="${webformatURL}" alt="${tags}" title="${tags}" loading="lazy" class="gallery__image"/></a>
+        </div>
         <div class="info">
-        <p class="info-item">
+        <p class="info__item">
             <b>Likes</b>
                     <span>${likes}</span>
         </p>
-        <p class="info-item">
+        <p class="info__item">
             <b>Views</b>
                     <span>${views}</span>
         </p>
-        <p class="info-item">
+        <p class="info__item">
             <b>Comments</b>
                     <span>${comments}</span>
         </p>
-        <p class="info-item">
+        <p class="info__item">
             <b>Downloads</b>
                     <span>${downloads}</span>
         </p>
         </div>
-    </div></a>`
+    </div>`
     }).join('');
 
     refs.gallery.insertAdjacentHTML('beforeend', markup);
-    smoothScroll();
 }
 
-function smoothScroll() {
-    const { height: cardHeight } = document
-    .querySelector('.gallery')
-    .firstElementChild.getBoundingClientRect();
-
-    window.scrollBy({
-        top: cardHeight * 8,
-        behavior: 'smooth',
-    });
+function onLoadMore() {
+    api.incrementPage();
+    fetchGallery();
 }
 
 function clearGallery() {
     refs.gallery.innerHTML = '';
-}
-
-
-function success() {
-    Notify.success(`Hooray! We found ${data.totalHits} images.`, { position: "center-top", timeout: 4000 });
-}
-
-function error() {
-    Notify.failure('Sorry, there are no images matching your search query. Please try again.', { position: "center-top", timeout: 4000 });
-}
-
-function warning() {
-    Notify.warning('Enter data to continue searching', { position: "center-top", timeout: 4000 });
 }

@@ -1,13 +1,17 @@
+html{
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: $bgdColor;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .section {
-    padding-top: 72px;
+    padding: 72px 0;
 
     @include tablet {
-        padding-top: 96px;
+        padding: 96px 0;
     }
 }
 
@@ -15,6 +19,7 @@ body {
     max-width: 100%;
     padding: 0 20px;
     margin: 0 auto;
+    text-align: center;
 
     @include mobile {
         max-width: 480px;

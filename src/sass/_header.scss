@@ -29,7 +29,7 @@ header {
     border: 4px double $accentColor;
     border-radius: 8px;
     background-color: $bgdColor;
-    color: $accentColor;
+    color: $darkColor;
     font-family: inherit;
     transition: border 250ms ease-in-out;
 
@@ -52,7 +52,7 @@ header {
 }
 
 .search-form__btn {
-    color: $bgdColor;
+    color: $darkColor;
     background-color: $accentColor;
     font-family: inherit;
     border-radius: 8px;
