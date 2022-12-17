@@ -37,7 +37,7 @@
 
     &:hover,
     &:focus {
-        outline: 5px solid $mainColor;
+        outline: 5px solid $accentColor;
     }
 }
 
@@ -69,8 +69,8 @@
     gap: 10px;
     justify-content: center;
     align-items: center;
-    color: $darkColor;
-    background-color: $accentColor;
+    color: $bgdColor;
+    background-color: $mainColor;
     border-radius: 0 0 20px 20px;
     font-size: 10px;
 
