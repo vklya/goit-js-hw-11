@@ -33,13 +33,13 @@ function onSearch(e) {
         Notify.warning('Enter data to continue searching', { position: "center-top", timeout: 4000 });
         return;
     }
-    refs.spinner.classList.remove('is-hidden');
 
     fetchGallery();
 }
 
 async function fetchGallery() {
     try {
+        refs.spinner.classList.remove('is-hidden');
         const images = await api.fetchImages();
         const countHits = images.data.hits.length;
         console.log(countHits);
