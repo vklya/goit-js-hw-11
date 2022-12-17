@@ -18,9 +18,13 @@
     }
 }
 
-
+.gallery__card {
+    height: 100%;
+    flex-basis: calc((100% - 20px) / 4);
+}
 
 .gallery__spinner{
+    margin: 0 auto;
     fill: $accentColor;
 
     &.is-hidden {
@@ -30,9 +34,23 @@
 
 
 .load-more{
+    margin: 0 auto;;
+    color: $bgdColor;
     background-color: $accentColor;
+    font-family: inherit;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 6px 0 $darkColor;
+    transition: transform 250ms ease-in-out, box-shadow 250ms ease-in-out;
 
     &.is-hidden {
         display: none;
+    }
+
+    &:hover,
+    &:focus {
+        cursor: pointer;
+        transform: scale(1.1);
+        box-shadow: none;
     }
 }

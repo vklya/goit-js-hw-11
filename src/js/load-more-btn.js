@@ -1,4 +1,4 @@
-export class LoadMoreBtn {
+export default class LoadMoreBtn {
     constructor({ selector, hidden = false }) {
         this.btn = document.querySelector(selector);
 

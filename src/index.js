@@ -1,7 +1,8 @@
-import SimpleLightbox from 'simplelightbox';
 import { Notify } from "notiflix";
-import { PixabayAPI } from "./js/PixabayAPI";
-import { LoadMoreBtn } from './js/load-more-btn';
+import PixabayAPI from "./js/PixabayAPI";
+import LoadMoreBtn from './js/load-more-btn';
+import SimpleLightbox from 'simplelightbox';
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const refs = {
     form: document.querySelector('#search-form'),
@@ -9,7 +10,8 @@ const refs = {
     spinner: document.querySelector('.gallery__spinner'),
 }
 
-const api = PixabayAPI;
+const api = new PixabayAPI();
+
 const loadMoreBtn = new LoadMoreBtn({ selector: '.load-more', hidden: true });
 let lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
@@ -17,19 +19,20 @@ let lightbox = new SimpleLightbox('.gallery a', {
 });
 
 refs.form.addEventListener('submit', onSearch);
-loadMoreBtn.btn.addEventListener('click', onLoadMore);
+loadMoreBtn.btn.addEventListener('click', fetchGallery);
 refs.spinner.classList.add('is-hidden');
 
 function onSearch(e) {
     e.preventDefault();
 
+    loadMoreBtn.hide();
     clearGallery();
-    api.query = e.currentTarget.element.query.value.trim();
+    api.resetPage();
+    api.query = e.currentTarget.elements.searchQuery.value.trim();
     if (api.query === '') {
         warning();
         return;
     }
-    api.resetPage();
     refs.spinner.classList.remove('is-hidden');
 
     fetchGallery();
@@ -37,36 +40,38 @@ function onSearch(e) {
 
 async function fetchGallery() {
     try {
-        await api.fetchImages().then(data => {
-            const countHits = data.hits.length;
-            if (countHits === 0) {
+        const images = await api.fetchImages();
+        const countHits = images.data.hits.length;
+        console.log(images.data.totalHits);
+        if (countHits === 0) {
                 error();
-                refs.spinner.classList.remove('is-hidden');
+                refs.spinner.classList.add('is-hidden');
                 return;
-            }
-            else {
-                renderGallery(data.hits);
+        }
+        else {
+                refs.spinner.classList.add('is-hidden');
+                renderGallery(images.data.hits);
                 success();
                 if (countHits >= 40) {
                     loadMoreBtn.show();
                 }
                 else if (countHits < 40) {
                     loadMoreBtn.hide();
-                    Notify.warning("We're sorry, but you've reached the end of search results.");
+                    Notify.warning("We're sorry, but you've reached the end of search results.", { position: "center-top", timeout: 4000 });
                 }
             lightbox.refresh();
-            }
-        });
-    } catch (error) {
+            }   
+    }
+    catch (error) {
         api.resetPage();
-        refs.spinner.classList.remove('is-hidden');
+        refs.spinner.classList.add('is-hidden');
         Notify.failure(error.message);
     }
 }
 
 function renderGallery(hits) {
     const markup = hits.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads, }) => {
-        return `<a href="${largeImageURL}"><div class="gallery__item">
+        return `<a href="${largeImageURL}"><div class="gallery__card">
         <img src="${webformatURL}" alt="${tags}" loading="lazy" />
         <div class="info">
         <p class="info-item">
@@ -89,7 +94,7 @@ function renderGallery(hits) {
     </div></a>`
     }).join('');
 
-    refs.gallery.insertAdjacentElement('beforeend', markup);
+    refs.gallery.insertAdjacentHTML('beforeend', markup);
     smoothScroll();
 }
 
@@ -110,13 +115,13 @@ function clearGallery() {
 
 
 function success() {
-    Notify.success(`Hooray! We found ${data.totalHits} images.`);
+    Notify.success(`Hooray! We found ${data.totalHits} images.`, { position: "center-top", timeout: 4000 });
 }
 
 function error() {
-    Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+    Notify.failure('Sorry, there are no images matching your search query. Please try again.', { position: "center-top", timeout: 4000 });
 }
 
 function warning() {
-    Notify.warning('Enter data to continue searching');
+    Notify.warning('Enter data to continue searching', { position: "center-top", timeout: 4000 });
 }
