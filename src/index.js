@@ -11,8 +11,8 @@ const refs = {
 }
 
 const api = new PixabayAPI();
-
 const loadMoreBtn = new LoadMoreBtn({ selector: '.load-more', hidden: true });
+
 let lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
