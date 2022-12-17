@@ -1,1 +1,241 @@
-/*# sourceMappingURL=index.css.map */
+p,
+h1,
+h2 {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #e2e8e4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.section {
+  padding: 72px 0;
+}
+@media screen and (min-width: 768px) {
+  .section {
+    padding: 96px 0;
+  }
+}
+
+.container {
+  max-width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+@media screen and (min-width: 480px) {
+  .container {
+    max-width: 480px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 0 32px;
+    max-width: 768px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 16px 0;
+  display: flex;
+  background-color: #6eb5c0;
+  box-shadow: 0 4px 10px 0 #006c84;
+}
+@media screen and (min-width: 480px) {
+  header {
+    padding: 20px 0;
+  }
+}
+
+.search-form {
+  margin: 0 auto;
+  display: flex;
+  gap: 8px;
+}
+
+.search-form__input {
+  width: 200px;
+  height: 24px;
+  padding: 0 8px;
+  border: 6px double #ffccbb;
+  border-radius: 8px;
+  background-color: #e2e8e4;
+  color: #006c84;
+  font-family: inherit;
+  transition: border 250ms ease-in-out;
+}
+.search-form__input:hover, .search-form__input:focus, .search-form__input:active {
+  outline: none;
+  border: 6px solid #ffccbb;
+}
+@media screen and (min-width: 768px) {
+  .search-form__input {
+    width: 300px;
+    height: 32px;
+    padding: 0 8px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .search-form__input {
+    width: 400px;
+  }
+}
+
+.search-form__btn {
+  color: #006c84;
+  background-color: #ffccbb;
+  font-family: inherit;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 6px 0 #006c84;
+  transition: transform 250ms ease-in-out, box-shadow 250ms ease-in-out;
+}
+@media screen and (min-width: 768px) {
+  .search-form__btn {
+    padding: 0 12px;
+  }
+}
+.search-form__btn:hover, .search-form__btn:focus {
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: none;
+}
+
+.gallery {
+  margin: 0 auto;
+}
+@media screen and (min-width: 480px) {
+  .gallery {
+    max-width: 400px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .gallery {
+    max-width: 700px;
+    gap: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .gallery {
+    max-width: 1200px;
+  }
+}
+
+.gallery__card {
+  height: 100%;
+  margin-top: 20px;
+}
+@media screen and (min-width: 768px) {
+  .gallery__card {
+    margin-top: 0;
+    flex-basis: calc((100% - 30px) / 3);
+  }
+}
+@media screen and (min-width: 1024px) {
+  .gallery__card {
+    flex-basis: calc((100% - 30px) / 4);
+  }
+}
+
+.gallery__item {
+  transition: outline 100ms ease-in-out;
+}
+.gallery__item:hover, .gallery__item:focus {
+  outline: 5px solid #ffccbb;
+}
+
+.gallery__image {
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .gallery__image {
+    -o-object-fit: cover;
+       object-fit: cover;
+    height: 200px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .gallery__image {
+    height: 300px;
+  }
+}
+
+.gallery__spinner {
+  text-align: center;
+  fill: #ffccbb;
+}
+.gallery__spinner.is-hidden {
+  display: none;
+}
+
+.info {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  color: #e2e8e4;
+  background-color: #6eb5c0;
+  border-radius: 0 0 20px 20px;
+  font-size: 12px;
+}
+@media screen and (min-width: 480px) {
+  .info {
+    font-size: 14px;
+  }
+}
+
+.load-more {
+  margin: 20px auto 0;
+  padding: 14px;
+  color: #006c84;
+  background-color: #ffccbb;
+  font-family: inherit;
+  border-radius: 8px;
+  font-size: 14px;
+  border: none;
+  box-shadow: 0 2px 6px 0 #006c84;
+  transition: transform 250ms ease-in-out, box-shadow 250ms ease-in-out;
+}
+.load-more.is-hidden {
+  display: none;
+}
+.load-more:hover, .load-more:focus {
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: none;
+}
+@media screen and (min-width: 768px) {
+  .load-more {
+    margin-top: 30px;
+  }
+}/*# sourceMappingURL=index.css.map */

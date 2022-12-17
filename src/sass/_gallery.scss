@@ -37,15 +37,14 @@
 
     &:hover,
     &:focus {
-        outline: 5px solid $accentColor;
+        outline: 5px solid $mainColor;
     }
 }
 
 .gallery__image {
-    height: 100%;
+    width: 100%;
 
     @include tablet {
-        width: 100%;
         object-fit: cover;
         height: 200px;
     }
@@ -70,12 +69,12 @@
     gap: 10px;
     justify-content: center;
     align-items: center;
-    color: $bgdColor;
-    background-color: $mainColor;
+    color: $darkColor;
+    background-color: $accentColor;
     border-radius: 0 0 20px 20px;
-    font-size: 10px;
+    font-size: 12px;
 
-    @include tablet {
+    @include mobile {
         font-size: 14px;
     }
 }
