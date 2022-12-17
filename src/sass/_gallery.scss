@@ -33,11 +33,11 @@
 }
 
 .gallery__item {
-    transition: outline 100ms ease-in-out;
+    transition: transform 250ms ease-in-out;
 
     &:hover,
     &:focus {
-        outline: 5px solid $mainColor;
+        transform: scale(1.05);
     }
 }
 
