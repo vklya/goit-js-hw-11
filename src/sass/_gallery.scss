@@ -1,0 +1,38 @@
+.gallery {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    @include mobile {
+        max-width: 400px;
+    }
+
+    @include tablet {
+        max-width: 700px;
+    }
+
+    @include desktop {
+        max-width: 1200px;
+    }
+}
+
+
+
+.gallery__spinner{
+    fill: $accentColor;
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+
+.load-more{
+    background-color: $accentColor;
+
+    &.is-hidden {
+        display: none;
+    }
+}

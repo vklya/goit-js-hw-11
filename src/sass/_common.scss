@@ -1,0 +1,31 @@
+body {
+    background-color: $bgdColor;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.section {
+    padding-top: 72px;
+
+    @include tablet {
+        padding-top: 96px;
+    }
+}
+
+.container {
+    max-width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+
+    @include mobile {
+        max-width: 480px;
+    }
+
+    @include tablet {
+        padding: 0 32px;
+        max-width: 768px;
+    }
+
+    @include desktop {
+        max-width: 1440px;
+    }
+}
